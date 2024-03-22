@@ -20,8 +20,15 @@ import (
 	"runtime/debug"
 )
 
+var (
+	BuildVersion string
+)
+
 // Version returns the version of the main module
 func Version() string {
+	if BuildVersion != "" {
+		return BuildVersion
+	}
 	info, ok := debug.ReadBuildInfo()
 	if !ok || info == nil || info.Main.Version == "" {
 		// binary has not been built with module support or doesn't contain a version.
